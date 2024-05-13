@@ -1,15 +1,23 @@
-import { Button, Card, CardBody, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, ScrollShadow, Select, SelectItem, } from "@nextui-org/react";
-import { useState } from "react";
+import { Button, Card, CardBody, ScrollShadow, Select, SelectItem, } from "@nextui-org/react";
+import { useState, useEffect} from "react";
 import { FaUserAlt } from "react-icons/fa";
-import { FaAngleDown, FaTrophy } from "react-icons/fa6";
+import { FaTrophy } from "react-icons/fa6";
 import { ImUpload3 } from "react-icons/im";
-import { MdEmail } from "react-icons/md";
+import { MdEmail, MdLanguage } from "react-icons/md";
 
 import { jsPDF } from "jspdf";
 
+interface User {
+  id : number; // user_id
+  username : string;
+  language: string[];
+  email: string;
+  submission_count: number;
+}
+
 const Users = () => {
-  const languages = [ "Assamese", "Bangla", "English", "Gujarati", "Hindi", "Kanaada", "Malayalam", "Manipuri", "Marathi", "Oriya", "Punjabi", "Tamil", "Telugu", ];
-  const [selectedLanguage, setSelectedLanguage] = useState("Telugu");
+  const [users, setUsers] = useState<User[]>([]);
+
   const handleIssueCertificate = () => {
     const doc = new jsPDF({orientation: "landscape"});
 
@@ -37,32 +45,32 @@ const Users = () => {
     img.src = 'public/images/certificate.png';
   }
 
-  return (
-    <div>
-      <div className="py-4 flex justify-evenly">
-        {languages.map(language => (
-            <Button key={language} color="success" variant={language === selectedLanguage ? "solid" : "bordered"} radius="full" onClick={()=> setSelectedLanguage(language)}>
-                {language}
-            </Button>
-        ))}
-      </div>
+  useEffect(()=> {
+    const fetchData = async() => {
+      const response = await fetch("http://bhasha.iiit.ac.in/crowd/api/users/");
+      const data = await response.json();
+      setUsers(data);
+    };
+    fetchData();
+  }, []);
 
-      <div className="flex justify-evenly">
-        <h1 className="text-2xl font-semibold"> Analytics This Month </h1>
-        <Dropdown>
-            <DropdownTrigger>
-              <Button 
-                variant="bordered" 
-              >
-                Sort By <FaAngleDown />
-              </Button>
-            </DropdownTrigger>
-            <DropdownMenu>
-              <DropdownItem>Today</DropdownItem>
-              <DropdownItem>Month</DropdownItem>
-              <DropdownItem>Year</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
+  return (
+    <ScrollShadow className="px-4 h-[90vh]">
+
+      <div className="flex items-center">
+        <h1 className="flex justify-center font-bold text-5xl p-6 w-4/5">User Analytics</h1>
+        <div className="w-1/5">
+          <Select
+            label="Criteria"
+            className="w-lg"
+            defaultSelectedKeys={["today"]}
+          >
+            <SelectItem key="today">Today</SelectItem>
+            <SelectItem key="week">Weekly</SelectItem>
+            <SelectItem key="month">Monthly</SelectItem>
+            <SelectItem key="year">Yearly</SelectItem>
+          </Select>
+        </div>
       </div>
 
       <div className="px-8 py-4">
@@ -80,6 +88,24 @@ const Users = () => {
               >
                 <SelectItem key="asc" value="asc">Asc</SelectItem>
                 <SelectItem key="desc" value="desc">Desc</SelectItem>
+              </Select>
+            </div>
+          </div>
+
+          <div className="w-1/3">
+            <div className="flex gap-x-2 items-center justify-center">
+              <MdLanguage />
+                Languages
+                <Select
+                  label="Language"
+                  placeholder="Select an language"
+                  selectionMode="multiple"
+                  className="w-[5rem]"
+                >
+                <SelectItem key="asc" value="asc">Hindi</SelectItem>
+                <SelectItem key="desc" value="desc">Telugu</SelectItem>
+                <SelectItem key="desc" value="desc">English</SelectItem>
+                <SelectItem key="desc" value="desc">Tamil</SelectItem>
               </Select>
             </div>
           </div>
@@ -118,27 +144,35 @@ const Users = () => {
         </div>
 
         <ScrollShadow className="flex w-full py-4">
+
           <div className="w-1/3">
             <div className="flex flex-col items-center justify-center">
-              {Array.from({ length: 20 }).map((_, index) => (
-                <p key={index} className="py-2">lorem ipsum</p>
+              {users.map(user => (
+                <p key={user.id} className="py-2">{user.id} : {user.username}</p>
               ))}
             </div>
           </div>
 
           <div className="w-1/3">
             <div className="flex flex-col items-center justify-center">
-              {Array.from({ length: 20 }).map((_, index) => (
-                <p key={index} className="py-2">loremipsum@gmail.com</p>
+              {users.map(user => (
+                <p key={user.id} className="py-2">{user.language}</p>
               ))}
             </div>
           </div>
 
           <div className="w-1/3">
             <div className="flex flex-col items-center justify-center">
-              <p className="py-2">20</p>
-              {Array.from({ length: 19 }).map((_, index) => (
-                <p key={index} className="py-2">10</p>
+              {users.map(user => (
+                <p key={user.id} className="py-2">{user.email}</p>
+              ))}
+            </div>
+          </div>
+
+          <div className="w-1/3">
+            <div className="flex flex-col items-center justify-center">
+              {users.map(user => (
+                <p key={user.id} className="py-2">{user.submission_count}</p>
               ))}
             </div>
           </div>
@@ -163,7 +197,7 @@ const Users = () => {
         </Card>
       </div>
 
-    </div>
+    </ScrollShadow>
   )
 }
 

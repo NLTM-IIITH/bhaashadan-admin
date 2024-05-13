@@ -7,7 +7,8 @@ const Upload = () => {
 
     return (
       <div>
-        <h1 className="flex justify-center text-3xl py-4">Upload a New Page</h1>
+        <h1 className="flex justify-start font-bold text-5xl p-6">New Paragraph</h1>
+        <h1 className="flex justify-center pb-6">You are uploading {selectedLanguage}</h1>
 
         <div className="flex justify-evenly py-4">
           <div className="flex flex-col gap-y-[18rem]">
@@ -26,21 +27,12 @@ const Upload = () => {
           </div>
 
           <div>
-            <Textarea
-              minRows={3}
-              label="Text"
-              variant="bordered"
-              placeholder="Enter the text"
-              disableAutosize
-              classNames={{
-                base: "w-[30rem] h-[30rem]",
-                input: "resize-y min-h-[25rem]"
-              }}
-            />
+            <h1 className="pb-4">Upload a .zip file</h1>
+            <input type="file"/>
           </div>
         </div>
 
-        <div className="flex justify-end mr-[16rem]">
+        <div className="flex justify-end py-4 mr-[27rem]">
           <Button color="success" variant="solid" radius="full">Upload</Button>
         </div>
       </div>

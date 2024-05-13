@@ -1,25 +1,13 @@
-import { useState } from "react";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  User,
-} from "@nextui-org/react";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, User } from "@nextui-org/react";
 
 import { FaBell } from "react-icons/fa6";
-import { RxHamburgerMenu } from "react-icons/rx";
-import Sidebar from "./Sidebar";
 
 const Navbarx = () => {
-  const [navOpen, setNavOpen] = useState(false);
   
   return (
     <div className="relative z-10">
       <div className={`bg-green flex py-2 justify-between`}>
         <div className="flex gap-x-4 px-4 align-middle">
-          <RxHamburgerMenu className="text-[#fff] w-6 h-6" onClick={()=> {setNavOpen(!navOpen)}}/>
-          <p className="text-[#fff] text-2xl">Bhaashadaan</p>
         </div>
 
         <div className="flex gap-x-4">
@@ -51,9 +39,7 @@ const Navbarx = () => {
             className="m-2 mr-4"
           />
         </div>
-      </div>
-      <div>
-        <Sidebar expanded = {navOpen} />
+
       </div>
     </div>
   );
