@@ -1,9 +1,8 @@
-import { Button, Card, CardBody, ScrollShadow, Select, SelectItem, } from "@nextui-org/react";
+import { Button, Card, CardBody, ScrollShadow, Select, SelectItem, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, } from "@nextui-org/react";
 import { useState, useEffect} from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { FaTrophy } from "react-icons/fa6";
 import { ImUpload3 } from "react-icons/im";
-import { MdEmail, MdLanguage } from "react-icons/md";
 
 import { jsPDF } from "jspdf";
 
@@ -73,111 +72,24 @@ const Users = () => {
         </div>
       </div>
 
-      <div className="px-8 py-4">
-        <div className="flex w-full">
-
-          <div className="w-1/3">
-            <div className="flex gap-x-2 items-center justify-center">
-              <FaUserAlt />
-              Username
-              <Select
-                label="Sort"
-                placeholder="Select an animal"
-                defaultSelectedKeys={["asc"]}
-                className="w-[5rem]"
-              >
-                <SelectItem key="asc" value="asc">Asc</SelectItem>
-                <SelectItem key="desc" value="desc">Desc</SelectItem>
-              </Select>
-            </div>
-          </div>
-
-          <div className="w-1/3">
-            <div className="flex gap-x-2 items-center justify-center">
-              <MdLanguage />
-                Languages
-                <Select
-                  label="Language"
-                  placeholder="Select an language"
-                  selectionMode="multiple"
-                  className="w-[5rem]"
-                >
-                <SelectItem key="asc" value="asc">Hindi</SelectItem>
-                <SelectItem key="desc" value="desc">Telugu</SelectItem>
-                <SelectItem key="desc" value="desc">English</SelectItem>
-                <SelectItem key="desc" value="desc">Tamil</SelectItem>
-              </Select>
-            </div>
-          </div>
-
-          <div className="w-1/3">
-            <div className="flex gap-x-2 items-center justify-center">
-              <MdEmail />
-              Email ID
-              <Select
-                label="Sort"
-                placeholder="Select an animal"
-                defaultSelectedKeys={["asc"]}
-                className="w-[5rem]"
-              >
-                <SelectItem key="asc" value="asc">Asc</SelectItem>
-                <SelectItem key="desc" value="desc">Desc</SelectItem>
-              </Select>
-            </div>
-          </div>
-
-          <div className="w-1/3">
-            <div className="flex gap-x-2 items-center justify-center">
-              <ImUpload3 />
-              Submissions
-              <Select
-                label="Sort"
-                placeholder="Select an animal"
-                defaultSelectedKeys={["asc"]}
-                className="w-[5rem]"
-              >
-                <SelectItem key="asc" value="asc">Asc</SelectItem>
-                <SelectItem key="desc" value="desc">Desc</SelectItem>
-              </Select>
-            </div>
-          </div>
-        </div>
-
-        <ScrollShadow className="flex w-full py-4">
-
-          <div className="w-1/3">
-            <div className="flex flex-col items-center justify-center">
-              {users.map(user => (
-                <p key={user.id} className="py-2">{user.id} : {user.username}</p>
-              ))}
-            </div>
-          </div>
-
-          <div className="w-1/3">
-            <div className="flex flex-col items-center justify-center">
-              {users.map(user => (
-                <p key={user.id} className="py-2">{user.language}</p>
-              ))}
-            </div>
-          </div>
-
-          <div className="w-1/3">
-            <div className="flex flex-col items-center justify-center">
-              {users.map(user => (
-                <p key={user.id} className="py-2">{user.email}</p>
-              ))}
-            </div>
-          </div>
-
-          <div className="w-1/3">
-            <div className="flex flex-col items-center justify-center">
-              {users.map(user => (
-                <p key={user.id} className="py-2">{user.submission_count}</p>
-              ))}
-            </div>
-          </div>
-        </ScrollShadow>
-      </div>
+      <Table>
+        <TableHeader>
+          <TableColumn>NAME</TableColumn>
+          <TableColumn>Languages</TableColumn>
+          <TableColumn>EMAIL ID</TableColumn>
+          <TableColumn>Submissions</TableColumn>
+        </TableHeader>
+        <TableBody>
+          {users.map(user => (
+            <TableRow key={user.id}>
+              <TableCell>{user.username}</TableCell>
+              <TableCell>{user.language}</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell>{user.submission_count}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
 
       <div className="py-4">
         <Card className="py-4 w-[30rem] ml-40">

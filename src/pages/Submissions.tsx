@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Input, ScrollShadow, Select, SelectItem } from "@nextui-org/react";
+import { Button, Input, Progress, ScrollShadow, Select, SelectItem } from "@nextui-org/react";
 
 import SubmCardx from "../components/SubmissionCard";
 
@@ -16,17 +16,23 @@ const Submissions = () => {
     const languages = [ "All", "Assamese", "Bangla", "English", "Gujarati", "Hindi", "Kannada", "Malayalam", "Manipuri", "Marathi", "Oriya", "Punjabi", "Tamil", "Telugu", ];
     const [selectedLanguage, setSelectedLanguage] = useState("All");
     const [submissions, setSubmissions] = useState<Submission[]>([]);
+    const [selectedSort, setSelectedSort] = useState("dateno");
+    const [loading, setLoading] = useState(false);
 
     useEffect(()=> {
       const fetchData = async () => {
+        setLoading(true);
         const response = await fetch("http://bhasha.iiit.ac.in/crowd/api/submissions/");
         const data = await response.json();
         setSubmissions(data);
+        setLoading(false);
       };
       fetchData();
     }, []);
 
-  const filteredSubmissions = selectedLanguage === "All" ? submissions : submissions.filter(submission => submission.language === (selectedLanguage.charAt(0).toLowerCase() + selectedLanguage.slice(1)));
+  let filteredSubmissions = selectedLanguage === "All" ? submissions : submissions.filter(submission => submission.language === (selectedLanguage.charAt(0).toLowerCase() + selectedLanguage.slice(1)));
+
+  filteredSubmissions = selectedSort === "dateno" ? filteredSubmissions.sort((a, b) => new Date(b.upload_date).getTime() - new Date(a.upload_date).getTime()) : filteredSubmissions.sort((a, b) => new Date(a.upload_date).getTime() - new Date(b.upload_date).getTime()) ;
 
   return (
     <ScrollShadow className="px-4">
@@ -39,25 +45,40 @@ const Submissions = () => {
       </div>
         
       <div className="flex justify-evenly">
-        <div className="w-4/5"><Input type="text" variant="underlined" label="Search ⌕" /></div>
+        <div className="w-4/5"><Input type="text" variant="underlined" label="Search ⌕" hidden /></div>
         <div className="w-1/5">
           <Select
             label="Sort by" 
             className="w-lg"
-            defaultSelectedKeys={["date"]}
+            defaultSelectedKeys={["dateno"]}
+            onSelectionChange={(key: Set<string>) => setSelectedSort(Array.from(key).join(''))}
           >
-            <SelectItem key="date">Upload Date</SelectItem>
-            <SelectItem key="user">User</SelectItem>
-            <SelectItem key="uploads">Uploads</SelectItem>
+            <SelectItem key="dateno">Upload Date - new to old</SelectItem>
+            <SelectItem key="dateon">Upload Date - old to new</SelectItem>
           </Select>
         </div>
       </div>
 
+      {loading ? (
+        <div className="py-4">
+          <Progress
+            size="sm"
+            isIndeterminate
+            aria-label="Loading..."
+            className="w-4/5"
+          />
+        </div>
+      ) :
+      (
         <div className="grid grid-cols-4 gap-4 py-10">
           {filteredSubmissions.map(submission => (
             <SubmCardx key={submission.id} submission={submission} />
           ))}
         </div>
+      )
+      }
+
+      
         
       </ScrollShadow>
   );

@@ -1,7 +1,5 @@
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, User } from "@nextui-org/react";
 
-import { FaBell } from "react-icons/fa6";
-
 const Navbarx = () => {
   
   return (
@@ -10,14 +8,14 @@ const Navbarx = () => {
         <div className="flex gap-x-4 px-4 align-middle">
         </div>
 
-        <div className="flex gap-x-4">
+        <div className="flex gap-x-4 px-4">
           <Dropdown placement="bottom-start">
             <DropdownTrigger>
               <User
                 as="button"
                 avatarProps={{
                   isBordered: true,
-                  src: "https://imgs.search.brave.com/_86LSqJtcq6Q0XZ-4aIym7dO5vn-orLWSl2G9_PZPew/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93aGF0/aWZnYW1pbmcuY29t/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDIx/LzExL0Z1bm55LW5h/cnV0by1hbmltZS1Q/RlAuanBn",
+                  src: "https://cdn-icons-png.flaticon.com/512/1144/1144760.png",
                 }}
                 className="transition-transform"
                 description="@admin"
@@ -34,10 +32,6 @@ const Navbarx = () => {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
-          
-          <FaBell 
-            className="m-2 mr-4"
-          />
         </div>
 
       </div>
