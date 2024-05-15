@@ -2,7 +2,6 @@ import { Card, CardBody, Button, Image, ScrollShadow } from "@nextui-org/react";
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure} from "@nextui-org/react";
 import { FaUser } from "react-icons/fa6";
 import { MdLanguage, MdNumbers, MdOutlineDateRange } from "react-icons/md";
-import { RiNumbersFill } from "react-icons/ri";
 
 interface Submission{
   id: number;

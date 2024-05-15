@@ -22,6 +22,7 @@ interface Paragraph{
 const Analytics: React.FC = () => {
   const [paragraphs, setParagraphs] = useState<Paragraph[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [year, setYear] = useState(2021);
 
   useEffect(()=> {
     const fetchData = async() => {
@@ -145,7 +146,6 @@ const Analytics: React.FC = () => {
       const chart2 = new ApexCharts(document.querySelector("#chart1") as HTMLElement, options2);
       chart2.render();
       
-      
       const options4: ApexCharts.ApexOptions = {
         series: [
           fetchLanguageData("assamese").submitted,
@@ -189,12 +189,13 @@ const Analytics: React.FC = () => {
 
       <div>
         <div className="flex pb-8">
-          <h1 className='w-3/5 p-4 px-8 text-xl'>Total Submissions</h1>
+          <h1 className='w-3/5 p-4 px-8 text-xl'>Total Submissions in the year {year}</h1>
           <div className="w-2/5 flex gap-x-4">
             <Select
               label="Year"
               className="w-lg"
               defaultSelectedKeys={["2021"]}
+              onSelectionChange={(key: Set<string>) => setYear(parseInt(Array.from(key).join('')))}
             >
               <SelectItem key="2021">2021</SelectItem>
               <SelectItem key="2022">2022</SelectItem>
@@ -205,15 +206,16 @@ const Analytics: React.FC = () => {
             <Select
               label="View"
               className="w-lg"
-              defaultSelectedKeys={["date"]}
+              defaultSelectedKeys={["month"]}
             >
-              <SelectItem key="date">Weekly</SelectItem>
-              <SelectItem key="uploads">Monthly</SelectItem>
-              <SelectItem key="pending">Yearly</SelectItem>
+              <SelectItem key="week">Weekly</SelectItem>
+              <SelectItem key="month">Monthly</SelectItem>
             </Select>
           </div>
         </div>
-        <MainChart />
+        <MainChart 
+          year={year}
+        />
       </div>
 
       <div className="flex justify-evenly">

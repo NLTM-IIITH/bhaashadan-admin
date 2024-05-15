@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
 import ReactApexChart from 'react-apexcharts';
 
 interface SeriesData {
@@ -40,6 +41,7 @@ interface ChartState {
     Punjabiseries: SeriesData[];
     Tamilseries: SeriesData[];
     Teluguseries: SeriesData[];
+    Allseries: SeriesData[];
 
     AssameseOptions: ChartOptions;
     BanglaOptions: ChartOptions;
@@ -54,15 +56,272 @@ interface ChartState {
     PunjabiOptions: ChartOptions;
     TamilOptions: ChartOptions;
     TeluguOptions: ChartOptions;
+    AllOptions: ChartOptions;
 }
 
-export const MainChart: React.FC = () => {
+interface MainChartProps {
+  year: number;
+}
+
+export const MainChart: React.FC<MainChartProps> = ({year}) => {
+
+  useEffect(() => {
+    const fetchAssamese = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/assamese/${year}`);
+        const assameseseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Assameseseries: assameseseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchBangla = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/bangla/${year}`);
+        const banglaseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Banglaseries: banglaseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchEnglish = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/english/${year}`);
+        const englishseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Englishseries: englishseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchGujarati = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/gujarati/${year}`);
+        const gujaratiseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Gujaratiseries: gujaratiseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchHindi = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/hindi/${year}`);
+        const hindiseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Hindiseries: hindiseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchKannada = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/kannada/${year}`);
+        const kannadaseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Kannadaseries: kannadaseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchMalayalam = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/malayalam/${year}`);
+        const malayalamseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Malayalamseries: malayalamseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchManipuri = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/manipuri/${year}`);
+        const manipuriseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Manipuriseries: manipuriseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchMarathi = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/marathi/${year}`);
+        const marathiseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Marathiseries: marathiseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchOriya = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/oriya/${year}`);
+        const oriyaseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Oriyaseries: oriyaseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchPunjabi = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/punjabi/${year}`);
+        const punjabiseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Punjabiseries: punjabiseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchTamil = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/tamil/${year}`);
+        const tamilseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Tamilseries: tamilseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchTelugu = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/telugu/${year}`);
+        const teluguseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Teluguseries: teluguseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    const fetchAll = async() => {
+      try {
+        const res = await axios.get(`http://localhost:3000/submissions/all/${year}`);
+        const allseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
+        setChartState((prevState) => ({
+          ...prevState,
+          Allseries: allseries,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchAssamese();
+    fetchBangla();
+    fetchEnglish();
+    fetchGujarati();
+    fetchHindi();
+    fetchKannada();
+    fetchMalayalam();
+    fetchManipuri();
+    fetchMarathi();
+    fetchOriya();
+    fetchPunjabi();
+    fetchTamil();
+    fetchTelugu();
+    fetchAll();
+  }, [year]);
+  
     {/*@ts-ignore */}
     const [chartState, setChartState] = useState<ChartState>({
         Assameseseries: [{
-          name: 'sales',
-          data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
+          name: 'submissions',
+          data: [],
         }],
+
+        Banglaseries: [{
+          name: 'submissions',
+          data: [],
+        }],
+
+        Englishseries: [{
+          name: 'submissions',
+          data: [],
+        }],
+
+        Gujaratiseries: [{
+          name: 'submissions',
+          data: [],
+        }],
+
+        Hindiseries: [{
+          name: 'submissions',
+          data: [],
+        }],
+
+        Kannadaseries: [{
+          name: 'submissions',
+          data: [],
+        }],
+        
+        Malayalamseries: [{
+          name: 'submissions',
+          data: [],
+        }],
+        
+        Manipuriseries: [{
+          name: 'submissions',
+          data: [],
+        }],
+
+        Marathiseries: [{
+            name: 'submissions',
+            data: [],
+        }],
+
+        Oriyaseries: [{
+          name: 'submissions',
+          data: [],
+        }],
+
+        Punjabiseries: [{
+          name: 'submissions',
+          data: [],
+        }],
+
+        Tamilseries: [{
+          name: 'submissions',
+          data: [],
+        }],
+
+        Teluguseries: [{
+          name: 'submissions',
+          data: [],
+        }],
+        
+        Allseries: [{
+          name: 'submissions',
+          data: [],
+        }],
+
         AssameseOptions: {
           chart: {
             id: 'fb',
@@ -79,10 +338,6 @@ export const MainChart: React.FC = () => {
           },
         },
 
-        Banglaseries: [{
-          name: 'sales',
-          data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
-        }],
         BanglaOptions: {
           chart: {
             id: 'fb',
@@ -99,10 +354,6 @@ export const MainChart: React.FC = () => {
           },
         },
         
-        Englishseries: [{
-          name: 'sales',
-          data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
-        }],
         EnglishOptions: {
           chart: {
             id: 'fb',
@@ -119,10 +370,6 @@ export const MainChart: React.FC = () => {
           },
         },
 
-        Gujaratiseries: [{
-          name: 'sales',
-          data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
-        }],
         GujaratiOptions: {
           chart: {
             id: 'fb',
@@ -139,10 +386,6 @@ export const MainChart: React.FC = () => {
           },
         },
 
-        Hindiseries: [{
-          name: 'sales',
-          data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
-        }],
         HindiOptions: {
           chart: {
             id: 'fb',
@@ -159,10 +402,6 @@ export const MainChart: React.FC = () => {
           },
         },
 
-        Kannadaseries: [{
-          name: 'sales',
-          data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
-        }],
         KannadaOptions: {
           chart: {
             id: 'fb',
@@ -179,10 +418,6 @@ export const MainChart: React.FC = () => {
           },
         },
 
-        Malayalamseries: [{
-          name: 'sales',
-          data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
-        }],
         MalayalamOptions: {
           chart: {
             id: 'fb',
@@ -199,10 +434,6 @@ export const MainChart: React.FC = () => {
           },
         },
       
-        Manipuriseries: [{
-            name: 'sales',
-            data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
-          }],
         ManipuriOptions: {
           chart: {
             id: 'tw',
@@ -219,10 +450,6 @@ export const MainChart: React.FC = () => {
           },
         },
 
-        Marathiseries: [{
-            name: 'sales',
-            data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
-          }],
         MarathiOptions: {
           chart: {
             id: 'tw',
@@ -239,10 +466,6 @@ export const MainChart: React.FC = () => {
           },
         },
 
-        Oriyaseries: [{
-            name: 'sales',
-            data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
-          }],
         OriyaOptions: {
           chart: {
             id: 'tw',
@@ -259,10 +482,6 @@ export const MainChart: React.FC = () => {
           },
         },
 
-        Punjabiseries: [{
-            name: 'sales',
-            data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
-          }],
         PunjabiOptions: {
           chart: {
             id: 'tw',
@@ -279,10 +498,6 @@ export const MainChart: React.FC = () => {
           },
         },
 
-        Tamilseries: [{
-            name: 'sales',
-            data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
-          }],
         TamilOptions: {
           chart: {
             id: 'tw',
@@ -299,10 +514,6 @@ export const MainChart: React.FC = () => {
           },
         },
 
-        Teluguseries: [{
-            name: 'sales',
-            data: [10, 15, 7, 18, 20, 15, 12, 8, 16, 19, 15, 12],
-          }],
         TeluguOptions: {
           chart: {
             id: 'tw',
@@ -319,14 +530,31 @@ export const MainChart: React.FC = () => {
           },
         },
 
-
-    });  
+        AllOptions: {
+          chart: {
+            id: 'tw',
+            group: 'social',
+            type: 'line',
+          },
+          colors: ['#000000'],
+          xaxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          },
+          title: {
+            text: 'All languages',
+            align: 'center',
+          },
+        },
+    });
 
       return (
         <div>
           <div id="wrapper" className="flex">
 
             <div id="col1" className="flex flex-col">
+              <div id="chart-All">
+                <ReactApexChart options={chartState.AllOptions} series={chartState.Allseries} type="line" height={150} width={620}/>
+              </div>
               <div id="chart-Assamese">
                 <ReactApexChart options={chartState.AssameseOptions} series={chartState.Assameseseries} type="line" height={150} width={620}/>
               </div>
@@ -345,12 +573,12 @@ export const MainChart: React.FC = () => {
               <div id="chart-Kannada">
                 <ReactApexChart options={chartState.KannadaOptions} series={chartState.Kannadaseries} type="line" height={150} width={620}/>
               </div>
-              <div id="chart-Malayalam">
-                <ReactApexChart options={chartState.MalayalamOptions} series={chartState.Malayalamseries} type="line" height={150} width={620}/>
-              </div>
             </div>
 
             <div id="col2">
+              <div id="chart-Malayalam">
+                <ReactApexChart options={chartState.MalayalamOptions} series={chartState.Malayalamseries} type="line" height={150} width={620}/>
+              </div>
               <div id="chart-Manipuri">
                 <ReactApexChart options={chartState.ManipuriOptions} series={chartState.Manipuriseries} type="line" height={150} width={620}/>
               </div>
@@ -368,7 +596,7 @@ export const MainChart: React.FC = () => {
               </div>
               <div id="chart-Telugu">
                 <ReactApexChart options={chartState.TeluguOptions} series={chartState.Teluguseries} type="line" height={150} width={620}/>
-              </div>  
+              </div>
             </div>
                    
           </div>
