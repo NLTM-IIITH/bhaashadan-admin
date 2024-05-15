@@ -68,7 +68,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
   useEffect(() => {
     const fetchAssamese = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/assamese/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/assamese/${year}`);
         const assameseseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -80,7 +80,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchBangla = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/bangla/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/bangla/${year}`);
         const banglaseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -92,7 +92,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchEnglish = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/english/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/english/${year}`);
         const englishseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -104,7 +104,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchGujarati = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/gujarati/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/gujarati/${year}`);
         const gujaratiseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -116,7 +116,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchHindi = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/hindi/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/hindi/${year}`);
         const hindiseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -128,7 +128,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchKannada = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/kannada/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/kannada/${year}`);
         const kannadaseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -140,7 +140,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchMalayalam = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/malayalam/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/malayalam/${year}`);
         const malayalamseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -152,7 +152,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchManipuri = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/manipuri/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/manipuri/${year}`);
         const manipuriseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -164,7 +164,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchMarathi = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/marathi/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/marathi/${year}`);
         const marathiseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -176,7 +176,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchOriya = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/oriya/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/oriya/${year}`);
         const oriyaseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -188,7 +188,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchPunjabi = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/punjabi/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/punjabi/${year}`);
         const punjabiseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -200,7 +200,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchTamil = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/tamil/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/tamil/${year}`);
         const tamilseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -212,7 +212,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchTelugu = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/telugu/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/telugu/${year}`);
         const teluguseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
@@ -224,7 +224,7 @@ export const MainChart: React.FC<MainChartProps> = ({year}) => {
     }
     const fetchAll = async() => {
       try {
-        const res = await axios.get(`http://localhost:3000/submissions/all/${year}`);
+        const res = await axios.get(`http://localhost:3525/submissions/all/${year}`);
         const allseries: SeriesData[] = [{ name: 'submissions', data: res.data }];
         setChartState((prevState) => ({
           ...prevState,
