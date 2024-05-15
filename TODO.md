@@ -6,8 +6,7 @@ Project Description
 
 ### Todo
 
-- [ ] handle errors
-- [ ] add a cache logic to every API, cuz it is fetching every time I load, so make it such a way u store it in cache
+- [ ] dockerize and deploy
 
 ### In Progress
 
@@ -23,5 +22,4 @@ Project Description
 - [✓] Add loading 
 - [✓] Analytics page
 - [✓] user language
-
-
+- [✓] handle errors

@@ -1,79 +1,36 @@
-import { Button, Card, CardBody, Dropdown, DropdownMenu, DropdownTrigger, DropdownItem, Input, ScrollShadow, Select, SelectItem, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, } from "@nextui-org/react";
+import { Input, ScrollShadow, Divider, Progress, } from "@nextui-org/react";
 import { useState, useEffect} from "react";
-import { FaUserAlt } from "react-icons/fa";
-import { FaAngleDown, FaTrophy } from "react-icons/fa6";
-import { ImUpload3 } from "react-icons/im";
 
-import { jsPDF } from "jspdf";
-import { BsArrowDownUp, BsThreeDotsVertical } from "react-icons/bs";
+import { BsArrowDownUp, } from "react-icons/bs";
+import axios from "axios";
 
 interface User {
   id : number; // user_id
   username : string;
-  language: string[];
   email: string;
   submission_count: number;
+  languages: string[];
 }
 
 const Users = () => {
   let [users, setUsers] = useState<User[]>([]);
-  const [submissions, setSubmissions] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [nameSort, setNameSort] = useState(null);
   const [subSort, setSubSort] = useState(null);
-
-  const handleIssueCertificate = (name: string) => {
-    const doc = new jsPDF({orientation: "landscape"});
-
-    const img = new Image();
-    img.onload = function () {
-      const canvas = document.createElement('canvas');
-      canvas.width = this.naturalWidth;
-      canvas.height = this.naturalHeight;
-      const ctx = canvas.getContext('2d');
-      if(ctx){
-        ctx.drawImage(this, 0, 0);
-      }
-      const dataURL = canvas.toDataURL('image/jpeg');
-
-      doc.addImage(dataURL, 'JPEG', 0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height);
-
-      doc.setFont("anastasia");
-      doc.setFontSize(58);
-      doc.setTextColor(50, 49, 47); 
-      doc.text(name, 95, 120);
-
-      doc.save("certificate.pdf");
-    };
-
-    img.src = 'public/images/certificate.png';
-  }
+  const [loading, setLoading] = useState(false);
 
   useEffect(()=> {
     const fetchUsers = async() => {
-      try {
-        const response = await fetch("http://bhasha.iiit.ac.in/crowd/api/users/");
-        const data = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.log(error);        
-      }
-    };
+        try {
+            setLoading(true);
+            const users = await axios.get("http://localhost:3525/users");
+            setUsers(users.data);
+            setLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
+    }
     fetchUsers();
-  }, []);
-
-  useEffect(() => {
-    const fetchSubmissions = async () => {
-      try {
-        const response = await fetch("http://bhasha.iiit.ac.in/crowd/api/submissions/");
-        const data = await response.json();
-        setSubmissions(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchSubmissions();
   }, []);
 
   if(searchTerm.length > 0){ 
@@ -103,81 +60,65 @@ const Users = () => {
   }
   
   return (
-    <ScrollShadow className="px-4 h-[90vh]">
+    <ScrollShadow className="h-[90vh]">
 
-      <div className="flex items-center">
+      <div className="flex items-center justify-center">
         <div className="flex justify-center font-bold text-5xl p-6">
           <Input
             isClearable
             variant="bordered"
-            placeholder="Search by name"
+            placeholder="Search users by name "
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="max-w-md"
+            className="w-[40rem]"
           />
         </div>
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableColumn className="flex gap-x-2 items-center">
-            NAME 
-            <div onClick={()=> setNameSort(nameSort === 'desc' ? 'asc' : nameSort === 'asc' ? 'desc' : 'asc')}>  
+      <div className="flex bg-default-400 h-[4rem] items-center text-[#fff]">
+        <div className="w-1/5 flex justify-center items-center gap-x-4">
+            NAME
+            <div onClick={()=> setNameSort(nameSort === 'desc' ? 'asc' : nameSort === 'asc' ? 'desc' : 'asc')} className="cursor-pointer">  
               <BsArrowDownUp />
             </div>
-          </TableColumn>
-          <TableColumn>LANGUAGES</TableColumn>
-          <TableColumn>EMAIL ID</TableColumn>
-          <TableColumn className="flex gap-x-2 items-center">
-            Submissions
-            <div onClick={()=> setSubSort(subSort === 'desc' ? 'asc' : subSort === 'asc' ? 'desc' : 'asc')}>  
+        </div>
+        <div className="w-2/5 flex justify-center">LANGUAGES</div>
+        <div className="w-1/5 flex justify-center">EMAIL</div>
+        <div className="w-1/5 flex justify-center items-center gap-x-4">
+            SUBMISSION COUNT
+            <div onClick={()=> setSubSort(subSort === 'desc' ? 'asc' : subSort === 'asc' ? 'desc' : 'asc')} className="cursor-pointer">  
               <BsArrowDownUp />
-            </div> 
-          </TableColumn>
-        </TableHeader>
-        <TableBody>
-          {users.map(user => (
-            <TableRow key={user.id}>
-              <TableCell>{user.username}</TableCell>
-              <TableCell>{user.language}</TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell className="flex gap-x-12 items-center">
-                {user.submission_count}
-                <Dropdown>
-                  <DropdownTrigger>
-                      <BsThreeDotsVertical />
-                  </DropdownTrigger>
-                  <DropdownMenu>
-                      <DropdownItem>
-                        <div onClick={handleIssueCertificate(user.username)}>
-                          Issue Certificate
-                        </div>
-                      </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-
-      <div className="py-4">
-        <Card className="py-4 w-[30rem] ml-40">
-          <CardBody className="overflow-visible py-2">
-            <div className="flex">
-              <div>
-                <FaTrophy size={100}/>
-              </div>
-              <div>
-                <h1 className="text-xl ml-10">Top User this month</h1>
-                <h1 className="text-xl ml-10 flex items-center gap-x-4"><FaUserAlt />Lorem Ipsum</h1>
-                <h1 className="text-xl ml-10 flex items-center gap-x-4"><ImUpload3 />20 Submissions</h1>
-                <Button color="primary" className="ml-10 mt-4" >Issue Certificate</Button>
-              </div>
             </div>
-          </CardBody>
-        </Card>
+        </div>
       </div>
+      <div className="py-2"></div>
+
+    {loading ? 
+      <div>
+        <div className="py-4">
+          <Progress
+            size="sm"
+            isIndeterminate
+            aria-label="Loading..."
+            className="w-4/5"
+          />
+        </div>
+      </div>
+      :
+      <div>
+        {users.map(user => (
+            <div key={user.id}>
+                <div className="flex items-center">
+                    <div className="w-1/5 flex justify-center h-[2rem] items-center">{user.username}</div> 
+                    <div className="w-2/5 flex justify-center h-[2rem] items-center">{user.languages}</div>
+                    <div className="w-1/5 flex justify-center h-[2rem] items-center">{user.email}</div>
+                    <div className="w-1/5 flex justify-evenly h-[2rem] items-center"><div />{user.submission_count}</div>
+                </div>
+                <Divider className="my-2"/>
+            </div>
+        ))}
+      </div>
+    }
 
     </ScrollShadow>
   )

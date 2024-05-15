@@ -8,6 +8,7 @@ import Submissions from "./pages/Submissions";
 import Users from "./pages/Users";
 import Sidebar from "./components/Sidebar";
 import Users1 from "./pages/Users1";
+import Users2 from "./pages/User2";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/upload" element={<Upload />} />
               <Route path="/users" element={<Users />} />
               <Route path="/users1" element={<Users1 />} />
+              <Route path="/users2" element={<Users2 />} />
             </Routes>
           </div>
         </div>

@@ -115,7 +115,8 @@ const Analytics: React.FC = () => {
           colors: ['#fff']
         },
         title: {
-          text: 'Submissions vs Pending by Each Language'
+          text: 'Submissions vs Pending Paragraphs',
+          align: 'center',
         },
         xaxis: {
           categories: ["All", "Assamese", "Bangla", "English", "Gujarati", "Hindi", "Kannada", "Malayalam", "Manipuri", "Marathi", "Oriya", "Punjabi", "Tamil", "Telugu",],

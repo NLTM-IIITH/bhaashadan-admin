@@ -11,7 +11,6 @@ export default {
     extend: {
       fontFamily: {
         poppins: ["Poppins"],
-        anastasia: ["Anastasia Script Personal Use Regular"],
       }
     },
     colors: {

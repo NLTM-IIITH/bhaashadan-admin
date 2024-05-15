@@ -25,7 +25,7 @@ const Sidebar = () => {
   return (
     <aside className="h-screen bg-darkGreen w-[15rem] fixed">
       <nav className='h-full flex flex-col shadow-sm'>
-        <h1 className="py-4 flex justify-center items-center gap-x-2 text-2xl font-bold text-[#fff]"><Image src={Logo} className="w-12"/> Bhashadaan</h1>
+        <h1 className="py-4 flex justify-center items-center gap-x-2 text-2xl font-bold text-[#fff]"><Image src={Logo} className="w-12"/> Bhaashadan</h1>
         <div className={`py-4 m-2 rounded-full flex items-center cursor-pointer w-[14rem] ${getTabClasses('/')}`} onClick={()=> {handleTabClick('/')}}>
           <IoAnalytics style={{color: window.location.pathname === '/' ? "#172554" : "#fff"}} className={`ml-4 mr-2 w-6 h-6} `} />
           <h1 className={`font-semibold ${window.location.pathname === '/' ? 'text-navyBlue' : 'text-white'} 'w-20'`}>Analytics</h1>
