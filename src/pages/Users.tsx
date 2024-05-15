@@ -51,19 +51,26 @@ const Users = () => {
 
   useEffect(()=> {
     const fetchUsers = async() => {
-      const response = await fetch("http://bhasha.iiit.ac.in/crowd/api/users/");
-      const data = await response.json();
-      setUsers(data);
+      try {
+        const response = await fetch("http://bhasha.iiit.ac.in/crowd/api/users/");
+        const data = await response.json();
+        setUsers(data);
+      } catch (error) {
+        console.log(error);        
+      }
     };
     fetchUsers();
   }, []);
 
   useEffect(() => {
     const fetchSubmissions = async () => {
-      const response = await fetch("http://bhasha.iiit.ac.in/crowd/api/submissions/");
-      const data = await response.json();
-      console.log(data);
-      setSubmissions(data);
+      try {
+        const response = await fetch("http://bhasha.iiit.ac.in/crowd/api/submissions/");
+        const data = await response.json();
+        setSubmissions(data);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchSubmissions();

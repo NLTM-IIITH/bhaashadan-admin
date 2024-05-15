@@ -30,11 +30,15 @@ const Paragraphs = () => {
 
     useEffect(()=> {
       const fetchData = async() => {
-        setLoading(true);
-        const data = await fetch("http://bhasha.iiit.ac.in/crowd/api/paragraphs/");
-        const response = await data.json();
-        setParagraphs(response);
-        setLoading(false);
+        try {
+          setLoading(true);
+          const data = await fetch("http://bhasha.iiit.ac.in/crowd/api/paragraphs/");
+          const response = await data.json();
+          setParagraphs(response);
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+        }
       };
       fetchData();
     }, []);

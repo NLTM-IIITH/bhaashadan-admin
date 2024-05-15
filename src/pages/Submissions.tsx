@@ -21,11 +21,15 @@ const Submissions = () => {
 
     useEffect(()=> {
       const fetchData = async () => {
-        setLoading(true);
-        const response = await fetch("http://bhasha.iiit.ac.in/crowd/api/submissions/");
-        const data = await response.json();
-        setSubmissions(data);
-        setLoading(false);
+        try {
+          setLoading(true);
+          const response = await fetch("http://bhasha.iiit.ac.in/crowd/api/submissions/");
+          const data = await response.json();
+          setSubmissions(data);
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
+        }
       };
       fetchData();
     }, []);

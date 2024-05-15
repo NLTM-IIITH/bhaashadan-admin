@@ -26,10 +26,14 @@ const Analytics: React.FC = () => {
 
   useEffect(()=> {
     const fetchData = async() => {
-      const data = await fetch("http://bhasha.iiit.ac.in/crowd/api/paragraphs/");
-      const response = await data.json();
-      setParagraphs(response);
-      setIsLoading(false);
+      try{
+        const data = await fetch("http://bhasha.iiit.ac.in/crowd/api/paragraphs/");
+        const response = await data.json();
+        setParagraphs(response);
+        setIsLoading(false);
+      }catch(err){
+        console.log(err);
+      }
     };
     fetchData();
   }, []);
